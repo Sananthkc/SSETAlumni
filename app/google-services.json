@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "540998679328",
+    "firebase_url": "https://ssetalumni.firebaseio.com",
+    "project_id": "ssetalumni",
+    "storage_bucket": "ssetalumni.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540998679328:android:5ebc9b10a1cc405920f545",
+        "android_client_info": {
+          "package_name": "com.pro.ssetalumni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540998679328-0m3vmurmf5601sq5td3mo99sn8rus3u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdpqHxTD2_H2Dhu_aVYePwmtV9dCYNnJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540998679328-0m3vmurmf5601sq5td3mo99sn8rus3u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
