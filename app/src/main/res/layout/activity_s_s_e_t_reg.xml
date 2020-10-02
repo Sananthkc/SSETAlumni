@@ -31,10 +31,10 @@
         android:id="@+id/eTPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80sp"
         android:layout_marginHorizontal="30sp"
+        android:layout_marginTop="80sp"
         android:ems="10"
-        android:hint="Enter your Fulllname"
+        android:hint="Full Name"
         android:inputType="textPersonName" />
 
     <EditText
@@ -44,7 +44,8 @@
         android:layout_marginHorizontal="30sp"
         android:ems="10"
         android:hint="Enter Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColorHighlight="#FFFFFF" />
 
     <EditText
         android:id="@+id/eTRPassword"
@@ -53,7 +54,8 @@
         android:layout_marginHorizontal="30sp"
         android:ems="10"
         android:hint="Enter Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+       />
 
     <EditText
         android:id="@+id/eTRPhone"
@@ -62,7 +64,8 @@
         android:layout_marginHorizontal="30sp"
         android:ems="10"
         android:hint="Enter Mobile number"
-        android:inputType="phone" />
+        android:inputType="phone"
+        />
 
     <Button
         android:id="@+id/buttonRegister"
@@ -71,7 +74,8 @@
         android:layout_margin="70sp"
         android:background="@drawable/buttonlogin"
         android:text="REGISTER"
-        android:textColor="#E4DADA" />
+        android:textColor="#E4DADA"
+        />
 
     <TextView
         android:id="@+id/textView5"
@@ -80,6 +84,13 @@
         android:text="Already have an account"
         android:textAlignment="center"
         android:textColor="#FFFFFF" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
 
 </LinearLayout>
