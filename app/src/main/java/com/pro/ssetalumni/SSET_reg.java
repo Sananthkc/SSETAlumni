@@ -52,7 +52,7 @@ public class SSET_reg extends AppCompatActivity {
 
         //if already logged in then ...
         if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), Home.class));
             finish();
         }
 
@@ -162,4 +162,9 @@ public class SSET_reg extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(SSET_reg.this,Home.class);
+        startActivity(i);
+    }
 }

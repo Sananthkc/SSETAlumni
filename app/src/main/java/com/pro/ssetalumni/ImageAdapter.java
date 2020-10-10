@@ -29,6 +29,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         holder.textViewName.setText(uploadCurrent.getName());
         Picasso.get()
                 .load(uploadCurrent.getImageUrl())
+                .placeholder(R.drawable.logo)
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);

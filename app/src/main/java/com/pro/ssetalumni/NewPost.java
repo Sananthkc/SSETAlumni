@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,6 +67,7 @@ public class NewPost extends AppCompatActivity {
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
                     Toast.makeText(NewPost.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
+                    mProgressBar.setVisibility(View.VISIBLE);
                     uploadFile();
                 }
             }
@@ -108,11 +110,22 @@ public class NewPost extends AppCompatActivity {
                                 }
                             }, 500);
                             Toast.makeText(NewPost.this, "Upload successful", Toast.LENGTH_LONG).show();
-                            UploadImage upload = new UploadImage(mEditTextFileDescription.getText().toString().trim(),
+                       /*     UploadImage upload = new UploadImage(mEditTextFileDescription.getText().toString().trim(),
                                     taskSnapshot.getMetadata().getReference().toString());
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
+                        */
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful());
+                            Uri downloadUrl = urlTask.getResult();
+
+                            //Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
+                            UploadImage upload = new UploadImage(mEditTextFileDescription.getText().toString().trim(),downloadUrl.toString());
+
+                            String uploadId = mDatabaseRef.push().getKey();
+                            mDatabaseRef.child(uploadId).setValue(upload);
                         }
+
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -124,6 +137,7 @@ public class NewPost extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+
                             mProgressBar.setProgress((int) progress);
                         }
                     });
