@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,9 +42,10 @@ public class Home extends AppCompatActivity {
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseRef;
     private List<UploadImage> mUploads;
-    FirebaseAuth fAuth;
+
     String fullname;
     TextView fullName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class Home extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
+
 
 /*
         Intent intent = getIntent();
@@ -113,6 +116,7 @@ public class Home extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mProgressCircle = findViewById(R.id.progress_circle);
+
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
@@ -121,10 +125,15 @@ public class Home extends AppCompatActivity {
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mUploads.clear();       //for clearing the list every time a post is added...if not done, then the entire posts will gets merged again and again
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+
+
                     UploadImage upload = postSnapshot.getValue(UploadImage.class);
 
                     mUploads.add(upload);
+
                 }
                 mAdapter = new ImageAdapter(Home.this, mUploads);
                 mRecyclerView.setAdapter(mAdapter);
