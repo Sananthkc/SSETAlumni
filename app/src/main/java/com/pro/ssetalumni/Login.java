@@ -28,17 +28,24 @@ public class Login extends AppCompatActivity {
     TextView mCreateBtn,forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
+    String fullname;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        fAuth = FirebaseAuth.getInstance();
+        //if already logged in then ...
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), Home.class));
+            finish();
+        }
 
         mEmail = findViewById(R.id.eTLtEmailAddress);
         mPassword = findViewById(R.id.eTLPassword);
         progressBar = findViewById(R.id.progressBarLogin);
-        fAuth = FirebaseAuth.getInstance();
+
         mLoginBtn = findViewById(R.id.buttonlogin);
         mCreateBtn = findViewById(R.id.textregister);
         forgotTextLink = findViewById(R.id.forgotPassword);
@@ -75,7 +82,13 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),Home.class));
+                         /*   Intent intent = getIntent();
+                            fullname= intent.getStringExtra("full_name");
+                            Intent i = new Intent(Login.this , Home.class);
+                            startActivity(i);
+                            i.putExtra("full_name_from_login", fullname);
+
+                          */
                         }else {
                             Toast.makeText(Login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);

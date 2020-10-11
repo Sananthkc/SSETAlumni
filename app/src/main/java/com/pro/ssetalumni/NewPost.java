@@ -35,7 +35,7 @@ public class NewPost extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button mButtonChooseImage;
     private Button mButtonUpload;
-    private TextView mTextViewShowUploads;
+    private TextView mNameOfCreator;
     private EditText mEditTextFileDescription;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
@@ -43,14 +43,16 @@ public class NewPost extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
         mButtonChooseImage = findViewById(R.id.button_choose_image);
         mButtonUpload = findViewById(R.id.button_upload);
-       
+
         mEditTextFileDescription = findViewById(R.id.description_text);
+        mNameOfCreator =findViewById(R.id.name_poster);
         mImageView = findViewById(R.id.image_view);
         mProgressBar = findViewById(R.id.progressBar);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
@@ -74,12 +76,14 @@ public class NewPost extends AppCompatActivity {
         });
 
     }
+
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -89,11 +93,13 @@ public class NewPost extends AppCompatActivity {
             Picasso.get().load(mImageUri).into(mImageView);
         }
     }
+
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
     private void uploadFile() {
         if (mImageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
@@ -110,17 +116,13 @@ public class NewPost extends AppCompatActivity {
                                 }
                             }, 500);
                             Toast.makeText(NewPost.this, "Upload successful", Toast.LENGTH_LONG).show();
-                       /*     UploadImage upload = new UploadImage(mEditTextFileDescription.getText().toString().trim(),
-                                    taskSnapshot.getMetadata().getReference().toString());
-                            String uploadId = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadId).setValue(upload);
-                        */
+
                             Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!urlTask.isSuccessful());
+                            while (!urlTask.isSuccessful()) ;
                             Uri downloadUrl = urlTask.getResult();
 
                             //Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
-                            UploadImage upload = new UploadImage(mEditTextFileDescription.getText().toString().trim(),downloadUrl.toString());
+                            UploadImage upload = new UploadImage(mEditTextFileDescription.getText().toString().trim(), downloadUrl.toString());
 
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);

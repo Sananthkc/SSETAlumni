@@ -50,11 +50,7 @@ public class SSET_reg extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        //if already logged in then ...
-        if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
-            finish();
-        }
+
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,8 +148,11 @@ public class SSET_reg extends AppCompatActivity {
                             Log.d(TAG, "onFailure: " + e.toString());
                         }
                     });
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
+
+                    /*  Intent intent = new Intent(SSET_reg.this,Login.class);
+                    intent.putExtra("full_name", mName);
+*/
                 } else {
                     Toast.makeText(SSET_reg.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
@@ -164,7 +163,7 @@ public class SSET_reg extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(SSET_reg.this,Home.class);
+        Intent i = new Intent(SSET_reg.this,Login.class);
         startActivity(i);
     }
 }
