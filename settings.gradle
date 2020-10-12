@@ -1,2 +1,3 @@
+include ':appEvent'
 include ':app'
 rootProject.name = "SSETAlumni"
