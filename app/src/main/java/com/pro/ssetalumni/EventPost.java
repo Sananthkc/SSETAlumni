@@ -1,5 +1,4 @@
 package com.pro.ssetalumni;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Home extends AppCompatActivity {
+public class EventPost extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -54,22 +53,24 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.events);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setSelectedItemId(R.id.action_Posts);
+        bottomNavigationView.setSelectedItemId(R.id.action_Events);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
                     case R.id.action_Posts:
-
+                        startActivity(new Intent(getApplicationContext(), Home.class));
+                        overridePendingTransition(0, 0);
                         return true;
+
                     case R.id.action_Events:
-                        startActivity(new Intent(getApplicationContext(),EventPost.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), EventPost.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
 
@@ -110,12 +111,12 @@ public class Home extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.nav_pro:
-                        Intent intent = new Intent(Home.this, Dashboard.class);
+                        Intent intent = new Intent(EventPost.this, Dashboard.class);
                         startActivity(intent);
                         intent.addFlags((Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         break;
                     case R.id.nav_post:
-                        Intent i = new Intent(Home.this, NewPost.class);
+                        Intent i = new Intent(EventPost.this, NewPost.class);
                         startActivity(i);
 
                         break;
@@ -141,42 +142,6 @@ public class Home extends AppCompatActivity {
 
         });
 
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mProgressCircle = findViewById(R.id.progress_circle);
-
-        mUploads = new ArrayList<>();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-
-
-
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mUploads.clear();       //for clearing the list every time a post is added...if not done, then the entire posts will gets merged again and again
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-
-
-                    UploadImage upload = postSnapshot.getValue(UploadImage.class);
-
-                    mUploads.add(upload);
-
-                }
-                mAdapter = new ImageAdapter(Home.this, mUploads);
-                mRecyclerView.setAdapter(mAdapter);
-                mProgressCircle.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Home.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                mProgressCircle.setVisibility(View.INVISIBLE);
-            }
-        });
 
     }
-
-
 }

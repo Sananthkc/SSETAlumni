@@ -30,12 +30,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import javax.annotation.Nullable;
 
 public class NewPost extends AppCompatActivity {
 
@@ -53,6 +60,9 @@ public class NewPost extends AppCompatActivity {
     FirebaseUser firebaseUser;
     String Uid;
     String name;
+    FirebaseFirestore fStore;
+    FirebaseUser user;
+    FirebaseAuth fAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +82,23 @@ public class NewPost extends AppCompatActivity {
                 openFileChooser();
             }
         });
+//        fAuth = FirebaseAuth.getInstance();
+//        Uid = fAuth.getCurrentUser().getUid();
+//        DocumentReference documentReference = fStore.collection("users").document(Uid);
+//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+//                if (documentSnapshot.exists()) {
+//
+//                     mNameOfCreator.setText(documentSnapshot.getString("fName"));
+//
+//
+//                } else {
+//                    Log.d("tag", "onEvent: Document do not exists");
+//                }
+//            }
+//        });
+
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +106,8 @@ public class NewPost extends AppCompatActivity {
                     Toast.makeText(NewPost.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     mProgressBar.setVisibility(View.VISIBLE);
+
+
                     uploadFile();
                 }
             }
@@ -112,26 +141,8 @@ public class NewPost extends AppCompatActivity {
 
 
     private void uploadFile() {
-    /*    firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Uid = firebaseUser.getUid();
-
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 name = dataSnapshot.child(Uid).child("fName").getValue(String.class);
-
-                Log.d("tag", "name:" + name);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
-     */
         if (mImageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
@@ -153,7 +164,7 @@ public class NewPost extends AppCompatActivity {
                             Uri downloadUrl = urlTask.getResult();
 
                             //Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
-                            UploadImage upload = new UploadImage(name,mEditTextFileDescription.getText().toString().trim(), downloadUrl.toString());
+                            UploadImage upload = new UploadImage(name, mEditTextFileDescription.getText().toString().trim(), downloadUrl.toString());
 
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
@@ -179,5 +190,4 @@ public class NewPost extends AppCompatActivity {
         }
 
     }
-
 }

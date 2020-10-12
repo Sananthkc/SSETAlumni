@@ -32,7 +32,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 .load(uploadCurrent.getImageUrl())
                 .placeholder(R.drawable.logo)
                 .fit()
-                .centerCrop()
                 .into(holder.imageView);
     }
     @Override
