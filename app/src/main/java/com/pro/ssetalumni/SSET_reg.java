@@ -32,7 +32,7 @@ import java.util.Objects;
 
 public class SSET_reg extends AppCompatActivity {
 
-    EditText userName, userPassword, userEmail, userPhone;
+    EditText userName, userPassword, userEmail, userPhone, userOccupation;
     Button regButton;
     TextView userLogin;
     public static final String TAG = "TAG";
@@ -77,6 +77,7 @@ public class SSET_reg extends AppCompatActivity {
         userPhone = (EditText) findViewById(R.id.eTRPhone);
         regButton = (Button) findViewById(R.id.buttonRegister);
         userLogin = (TextView) findViewById(R.id.textView5);
+        userOccupation = findViewById(R.id.eTROccupation);
     }
 
     private void validate() {
@@ -86,6 +87,7 @@ public class SSET_reg extends AppCompatActivity {
         String mPassword = userPassword.getText().toString();
         final String mEmail = userEmail.getText().toString();
         final String mPhone = userPhone.getText().toString();
+        final String mOccupation = userOccupation.getText().toString();
         if (TextUtils.isEmpty(mName)) {
 
         }
@@ -137,6 +139,7 @@ public class SSET_reg extends AppCompatActivity {
                     user.put("fName", mName);
                     user.put("email", mEmail);
                     user.put("phone", mPhone);
+                    user.put("occupation",mOccupation);
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -150,9 +153,7 @@ public class SSET_reg extends AppCompatActivity {
                     });
 
 
-                    /*  Intent intent = new Intent(SSET_reg.this,Login.class);
-                    intent.putExtra("full_name", mName);
-*/
+
                 } else {
                     Toast.makeText(SSET_reg.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);

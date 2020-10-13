@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 
 public class Dashboard extends AppCompatActivity {
     private static final int GALLERY_INTENT_CODE = 1023;
-    TextView fullName, email, phone, verifyMsg;
+    TextView fullName, email, phone, occupation, verifyMsg;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -52,7 +52,7 @@ public class Dashboard extends AppCompatActivity {
         fullName = findViewById(R.id.profileName);
         email = findViewById(R.id.profileEmail);
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
-
+        occupation = findViewById(R.id.editTextOccupation);
         profileImage = findViewById(R.id.profileImage);
         changeProfileImage = findViewById(R.id.changeProfile);
 
@@ -108,6 +108,7 @@ public class Dashboard extends AppCompatActivity {
                     phone.setText(documentSnapshot.getString("phone"));
                     fullName.setText(documentSnapshot.getString("fName"));
                     email.setText(documentSnapshot.getString("email"));
+                    occupation.setText(documentSnapshot.getString("occupation"));
 
                 } else {
                     Log.d("tag", "onEvent: Document do not exists");
@@ -166,6 +167,7 @@ public class Dashboard extends AppCompatActivity {
                 i.putExtra("fullName", fullName.getText().toString());
                 i.putExtra("email", email.getText().toString());
                 i.putExtra("phone", phone.getText().toString());
+                i.putExtra("occupation", occupation.getText().toString());
                 startActivity(i);
 //
 

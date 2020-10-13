@@ -66,6 +66,15 @@
         android:hint="Enter Mobile number"
         android:inputType="phone"
         />
+    <EditText
+        android:id="@+id/eTROccupation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30sp"
+        android:ems="10"
+        android:hint="Occupation and Details"
+
+        />
 
     <Button
         android:id="@+id/buttonRegister"

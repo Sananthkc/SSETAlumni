@@ -32,7 +32,7 @@ import java.util.Map;
 public class EditProfile extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText profileFullName,profileEmail,profilePhone;
+    EditText profileFullName,profileEmail,profilePhone,profileOccupation;
     ImageView profileImageView;
     Button saveBtn;
     FirebaseAuth fAuth;
@@ -49,6 +49,7 @@ public class EditProfile extends AppCompatActivity {
         final String fullName = data.getStringExtra("fullName");
         String email = data.getStringExtra("email");
         String phone = data.getStringExtra("phone");
+        String occupation = data.getStringExtra("occupation");
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -59,6 +60,8 @@ public class EditProfile extends AppCompatActivity {
         profileEmail = findViewById(R.id.profileEmailAddress);
         profilePhone = findViewById(R.id.profilePhoneNo);
         profileImageView = findViewById(R.id.profileImageView);
+        profileOccupation = findViewById(R.id.profileOccupation);
+
         saveBtn = findViewById(R.id.saveProfileInfo);
 
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
@@ -94,6 +97,7 @@ public class EditProfile extends AppCompatActivity {
                         edited.put("email",email);
                         edited.put("fName",profileFullName.getText().toString());
                         edited.put("phone",profilePhone.getText().toString());
+                        edited.put("occupation",profileOccupation.getText().toString());
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -118,6 +122,7 @@ public class EditProfile extends AppCompatActivity {
         profileEmail.setText(email);
         profileFullName.setText(fullName);
         profilePhone.setText(phone);
+        profileOccupation.setText(occupation);
 
         Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
     }
