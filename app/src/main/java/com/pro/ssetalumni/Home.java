@@ -125,7 +125,7 @@ public class Home extends AppCompatActivity {
                         break;
                     case R.id.nav_event:
 
-                        Intent j = new Intent(Home.this, EventPost.class);
+                        Intent j = new Intent(Home.this, EventPostNew.class);
                         startActivity(j);
                         finish();
                         break;

@@ -19,6 +19,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyHolder>
 
     List<Listdata> eventslist;
     private Context context;
+
     public EventAdapter(List<Listdata> eventslist, Context context)
     {
         this.context=context;
@@ -58,7 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyHolder>
                 @Override
                 public void onClick(View v) {
                     Listdata listdata=eventslist.get(getAdapterPosition());
-                    Intent i=new Intent(context, EditEvent.class);
+                    Intent i=new Intent(context, EventEdit.class);
                     i.putExtra("id",listdata.id);
                     i.putExtra("title",listdata.title);
                     i.putExtra("desc",listdata.desc);
