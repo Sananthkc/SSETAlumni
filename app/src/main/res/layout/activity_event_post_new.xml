@@ -30,12 +30,30 @@
         <EditText
             android:id="@+id/desc"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="Description"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
+
+        <EditText
+        android:id="@+id/dateformat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Date"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+        <EditText
+            android:id="@+id/eHost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Host"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+
+
 
         <Button
 
