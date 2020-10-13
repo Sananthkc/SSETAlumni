@@ -9,13 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".NewPost"></activity>
+        <activity android:name=".EventEdit"></activity>
+        <activity android:name=".EventHomeScreen" />
+        <activity android:name=".EventPostNew" />
+        <activity android:name=".NewPost" />
         <activity android:name=".Home" />
         <activity android:name=".EditProfile" />
         <activity android:name=".Login" />
         <activity android:name=".Dashboard" />
         <activity android:name=".SSET_reg" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
