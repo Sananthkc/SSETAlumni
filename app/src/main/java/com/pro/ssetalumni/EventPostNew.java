@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class EventPostNew extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class EventPostNew extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventPostNew.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateformat.setText(SimpleDateFormat.getDateInstance().format(calendar.getTime()));
 
                     }
                 }, year,month,day);
