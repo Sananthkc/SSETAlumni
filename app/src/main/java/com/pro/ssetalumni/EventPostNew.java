@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 public class EventPostNew extends AppCompatActivity {
     EditText title,desc,dateformat,ehost;
-    String titlesend,descsend;
+    String titlesend,descsend,dateSend,hostSend;
     int year,month,day;
 
     private DatabaseReference mDatabase;
@@ -58,18 +58,20 @@ public class EventPostNew extends AppCompatActivity {
         public void AddEvent(View view) {
             titlesend=title.getText().toString();
             descsend=desc.getText().toString();
+            dateSend=dateformat.getText().toString();
+            hostSend=ehost.getText().toString();
             if(TextUtils.isEmpty(titlesend) || TextUtils.isEmpty(descsend)){
                 return;
             }
-            Add(titlesend,descsend);
+            Add(titlesend,descsend,dateSend,hostSend);
 
         }
 
-        private void Add(String titlesend, String descsend)
+        private void Add(String titlesend, String descsend, String dateSend, String hostSend)
         {
 
             String id=mDatabase.push().getKey();
-            Listdata listdata = new Listdata(id,titlesend, descsend);
+            Listdata listdata = new Listdata(id,titlesend, descsend,dateSend,hostSend);
             mDatabase.child("Events").child(id).setValue(listdata).
                     addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

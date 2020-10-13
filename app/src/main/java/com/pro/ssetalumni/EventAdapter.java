@@ -41,6 +41,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyHolder>
         Listdata data=eventslist.get(position);
         myHolder.title.setText(data.getTitle());
         myHolder.desc.setText(data.getDesc());
+        myHolder.date.setText(data.getDate());
+        myHolder.host.setText(data.getHost());
     }
 
     @Override
@@ -49,12 +51,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyHolder>
     }
 
     class  MyHolder extends RecyclerView.ViewHolder  {
-        TextView title,desc;
+        TextView title,desc,date,host;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.title);
             desc=itemView.findViewById(R.id.desc);
+            date=itemView.findViewById(R.id.date);
+            host=itemView.findViewById(R.id.host);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,6 +69,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyHolder>
                     i.putExtra("id",listdata.id);
                     i.putExtra("title",listdata.title);
                     i.putExtra("desc",listdata.desc);
+                    i.putExtra("date", listdata.date);
+                    i.putExtra("host", listdata.host);
                     context.startActivity(i);
                     }
             });

@@ -2,31 +2,52 @@
 <androidx.cardview.widget.CardView
     android:layout_margin="5dp"
     app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@android:color/black"
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp"
+        android:background="@drawable/back"
+        android:orientation="vertical">
+
         <TextView
-            android:layout_margin="5dp"
-            android:textColor="@android:color/white"
-            android:textSize="25dp"
-            android:text="Title"
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textSize="15dp"
-            android:textColor="@android:color/white"
-            android:text="Description"
+            android:text="Title"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="25dp" />
+
+        <TextView
             android:id="@+id/desc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Description"
+            android:textColor="@android:color/white"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Host"
+            android:textColor="@android:color/white"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Date"
+            android:textColor="@android:color/white"
+            android:textSize="15dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
