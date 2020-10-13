@@ -7,6 +7,7 @@ package com.pro.ssetalumni;
         import androidx.recyclerview.widget.RecyclerView;
 
         import android.content.Context;
+        import android.content.Intent;
         import android.os.Bundle;
 
         import com.google.firebase.database.DataSnapshot;
@@ -43,7 +44,7 @@ public class EventHomeScreen extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                list.clear();
 
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
                 {
@@ -65,4 +66,8 @@ public class EventHomeScreen extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), Home.class));
+    }
 }

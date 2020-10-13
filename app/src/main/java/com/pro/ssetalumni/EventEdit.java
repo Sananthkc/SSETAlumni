@@ -85,5 +85,10 @@ public class EventEdit extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), Home.class));
+    }
 }
 
