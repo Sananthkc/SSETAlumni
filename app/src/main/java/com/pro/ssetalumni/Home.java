@@ -131,6 +131,9 @@ public class Home extends AppCompatActivity {
                         break;
                     case R.id.nav_jobs:
 
+                        Intent i = new Intent(Home.this, newjobs.class);
+                        startActivity(i);
+
                         break;
                     case R.id.nav_logout:
                         FirebaseAuth.getInstance().signOut();//logout
