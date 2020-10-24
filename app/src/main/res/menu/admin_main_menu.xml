@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_pro"
+            android:icon="@drawable/pro"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_post"
+            android:title="Add Admin" />
+        <item
+            android:id="@+id/nav_addadmin"
+            android:icon="@drawable/post"
+            android:title="Add Post"
+            />
+
+        <item
+            android:id="@+id/nav_event"
+            android:icon="@drawable/eve"
+            android:title="Add Events" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
+
+
+
+    </group>
+
+</menu>

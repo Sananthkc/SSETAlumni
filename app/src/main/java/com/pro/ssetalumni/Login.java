@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
     EditText mEmail,mPassword;
     Button mLoginBtn;
-    TextView mCreateBtn,forgotTextLink;
+    TextView mCreateBtn,forgotTextLink,buttonadmin;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
     String fullname;
@@ -48,6 +48,7 @@ public class Login extends AppCompatActivity {
 
         mLoginBtn = findViewById(R.id.buttonlogin);
         mCreateBtn = findViewById(R.id.textregister);
+        buttonadmin = findViewById(R.id.buttonadmin);
         forgotTextLink = findViewById(R.id.forgotPassword);
 
         progressBar.setVisibility(View.GONE);
@@ -145,6 +146,14 @@ public class Login extends AppCompatActivity {
 
                 passwordResetDialog.create().show();
 
+            }
+        });
+
+        buttonadmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this,AdminLogin.class);
+                startActivity(i);
             }
         });
 

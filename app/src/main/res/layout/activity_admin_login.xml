@@ -9,24 +9,14 @@
     tools:context=".Login">
 
     <TextView
-        android:id="@+id/buttonadmin"
-        android:layout_width="135dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="260dp"
-        android:layout_marginTop="30dp"
-        android:text="Admin Login"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
-    <TextView
+        android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SSETAlumni"
-        android:textSize="30dp"
         android:layout_marginTop="120sp"
+        android:text="SSETAlumni"
         android:textAlignment="center"
         android:textColor="#FFFCFC"
-        />
+        android:textSize="30sp" />
 
 
     <EditText
@@ -34,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30sp"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="120sp"
         android:ems="10"
         android:hint="Enter Email"
         android:inputType="textEmailAddress" />
@@ -67,13 +57,12 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/textregister"
+        android:id="@+id/userbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:text="Create new account"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF" />
+        android:layout_marginTop="20dp"
+        android:text="Not an admin?Login Here"
+        android:textAlignment="center" />
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
@@ -81,5 +70,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:visibility="invisible" />
+
 
 </LinearLayout>
