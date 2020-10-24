@@ -11,5 +11,9 @@
         android:title="Events"
         android:icon="@drawable/ic_event" />
 
+        <item android:id="@+id/action_jobs"
+            android:title="Jobs"
+            android:icon="@drawable/job" />
+
     </group>
 </menu>

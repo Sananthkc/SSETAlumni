@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    >
 
 
     <ImageView
@@ -18,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_choose_image"
+        android:id="@+id/button_choose_jobs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose file"
@@ -42,7 +44,18 @@
         app:layout_constraintTop_toBottomOf="@+id/image_view"
         tools:ignore="MissingConstraints" />
 
-
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_toEndOf="@+id/button_choose_image"
+        android:hint="Last date for applying"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_text"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button_upload"
