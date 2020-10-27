@@ -37,15 +37,15 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class newjobs extends AppCompatActivity {
+public class Newjobs extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button mButtonjobs;
     private Button mButtonUpload;
     private EditText mdate;
-    private TextView mNameOfCreator;
-    private EditText mEditTextFileDescription;
-    private ImageView mImageView;
+    private TextView mNameOfJob;
+    private EditText mEditJobDescription;
+    private ImageView mImageViewJob;
     private ProgressBar mProgressBar;
     private Uri mImageUri;
     private StorageReference mStorageRef;
@@ -57,7 +57,7 @@ public class newjobs extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     FirebaseAuth fAuth;
-    int year,month,day;
+    int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,54 +65,55 @@ public class newjobs extends AppCompatActivity {
         setContentView(R.layout.activity_newjobs);
         mButtonjobs = findViewById(R.id.button_choose_jobs);
         mButtonUpload = findViewById(R.id.button_upload);
-        mdate = findViewById(R.id.date);
+        mdate = findViewById(R.id.job_date);
         final Calendar calendar = Calendar.getInstance();
         mdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                year= calendar.get(Calendar.YEAR);
-                month= calendar.get(Calendar.MONTH);
-                day= calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(newjobs.this, new DatePickerDialog.OnDateSetListener() {
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Newjobs.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         mdate.setText(SimpleDateFormat.getDateInstance().format(calendar.getTime()));
 
                     }
-                }, year,month,day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+
+        mEditJobDescription = findViewById(R.id.job_description_text);
+      ///  mNameOfJob = findViewById(R.id.jobname);
+        mImageViewJob = findViewById(R.id.job_image_view);
+        mProgressBar = findViewById(R.id.progressBar);
+        mStorageRef = FirebaseStorage.getInstance().getReference("jobs");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("jobs");
+        mButtonjobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
+
+        mButtonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                    Toast.makeText(Newjobs.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+                } else {
+                    mProgressBar.setVisibility(View.VISIBLE);
+
+
+                    uploadFile();
+                }
+            }
+        });
     }
 
-    mEditTextFileDescription = findViewById(R.id.description_text);
-    mNameOfCreator =findViewById(R.id.name_poster);
-    mImageView = findViewById(R.id.image_view);
-    mProgressBar = findViewById(R.id.progressBar);
-    mStorageRef = FirebaseStorage.getInstance().getReference("jobs");
-    mDatabaseRef = FirebaseDatabase.getInstance().getReference("jobs");
-    mButtonjobs.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openFileChooser();
-        }
-    });
-
-    mButtonUpload.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mUploadTask != null && mUploadTask.isInProgress()) {
-                Toast.makeText(NewPost.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-            } else {
-                mProgressBar.setVisibility(View.VISIBLE);
-
-
-                uploadFile();
-            }
-        }
-    });
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -126,7 +127,7 @@ public class newjobs extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-            Picasso.get().load(mImageUri).into(mImageView);
+            Picasso.get().load(mImageUri).into(mImageViewJob);
         }
     }
 
@@ -135,6 +136,7 @@ public class newjobs extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
     private void uploadFile() {
 
 
@@ -152,14 +154,14 @@ public class newjobs extends AppCompatActivity {
                                     mProgressBar.setProgress(0);
                                 }
                             }, 500);
-                            Toast.makeText(NewPost.this, "Upload successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Newjobs.this, "Upload successful", Toast.LENGTH_LONG).show();
 
                             Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
                             while (!urlTask.isSuccessful()) ;
                             Uri downloadUrl = urlTask.getResult();
 
                             //Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
-                            UploadImage upload = new UploadImage(name, mEditTextFileDescription.getText().toString().trim(), downloadUrl.toString());
+                            UploadImageJobs upload = new UploadImageJobs(mEditJobDescription.getText().toString().trim(), downloadUrl.toString());
 
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
@@ -169,7 +171,7 @@ public class newjobs extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(NewPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Newjobs.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -184,7 +186,11 @@ public class newjobs extends AppCompatActivity {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
 
+        Intent i = new Intent(this, JobsHomeScreen.class);
+        startActivity(i);
+        finish();
     }
 }
+
 
 

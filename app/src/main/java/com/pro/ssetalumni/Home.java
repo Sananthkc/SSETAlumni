@@ -3,15 +3,12 @@ package com.pro.ssetalumni;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -22,10 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Home extends AppCompatActivity {
 
@@ -73,6 +67,11 @@ public class Home extends AppCompatActivity {
                         return true;
                     case R.id.action_Events:
                         startActivity(new Intent(getApplicationContext(),EventHomeScreen.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.action_jobs:
+                        startActivity(new Intent(getApplicationContext(),JobsHomeScreen.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -131,8 +130,9 @@ public class Home extends AppCompatActivity {
                         break;
                     case R.id.nav_jobs:
 
-                        Intent i = new Intent(Home.this, newjobs.class);
-                        startActivity(i);
+                        Intent k = new Intent(Home.this, Newjobs.class);
+                        startActivity(k);
+                        finish();
 
                         break;
                     case R.id.nav_logout:

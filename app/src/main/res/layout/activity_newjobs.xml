@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/job_image_view"
         android:layout_width="417dp"
         android:layout_height="404dp"
         android:layout_marginTop="4dp"
@@ -32,27 +30,29 @@
         app:layout_constraintVertical_bias="0.844" />
 
     <EditText
-        android:id="@+id/description_text"
+        android:id="@+id/job_description_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_toEndOf="@+id/button_choose_image"
         android:hint="Description"
+        app:layout_constraintBottom_toTopOf="@+id/job_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_view"
+        app:layout_constraintTop_toBottomOf="@+id/job_image_view"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/date"
+        android:id="@+id/job_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="192dp"
         android:layout_toEndOf="@+id/button_choose_image"
         android:hint="Last date for applying"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_text"
         tools:ignore="MissingConstraints" />

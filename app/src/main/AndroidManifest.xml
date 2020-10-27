@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".EventEdit"></activity>
+        <activity android:name=".JobsHomeScreen"></activity>
+        <activity android:name=".EventEdit" />
+        <activity android:name=".Newjobs" />
         <activity android:name=".EventHomeScreen" />
         <activity android:name=".EventPostNew" />
         <activity android:name=".NewPost" />
