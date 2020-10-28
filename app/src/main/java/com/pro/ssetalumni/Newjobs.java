@@ -47,7 +47,7 @@ public class Newjobs extends AppCompatActivity {
     private EditText mEditJobDescription;
     private ImageView mImageViewJob;
     private ProgressBar mProgressBar;
-    private Uri mImageUri;
+    private Uri mImageUriJob;
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
@@ -126,8 +126,8 @@ public class Newjobs extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            Picasso.get().load(mImageUri).into(mImageViewJob);
+            mImageUriJob = data.getData();
+            Picasso.get().load(mImageUriJob).into(mImageViewJob);
         }
     }
 
@@ -140,10 +140,10 @@ public class Newjobs extends AppCompatActivity {
     private void uploadFile() {
 
 
-        if (mImageUri != null) {
+        if (mImageUriJob != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
-            mUploadTask = fileReference.putFile(mImageUri)
+                    + "." + getFileExtension(mImageUriJob));
+            mUploadTask = fileReference.putFile(mImageUriJob)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -183,10 +183,10 @@ public class Newjobs extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Newjobs.this, "No file selected", Toast.LENGTH_SHORT).show();
         }
 
-        Intent i = new Intent(this, JobsHomeScreen.class);
+        Intent i = new Intent(Newjobs.this, JobsHomeScreen.class);
         startActivity(i);
         finish();
     }

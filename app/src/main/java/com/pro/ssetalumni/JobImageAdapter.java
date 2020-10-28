@@ -35,6 +35,7 @@ public class JobImageAdapter extends RecyclerView.Adapter<JobImageAdapter.ImageV
                 .placeholder(R.drawable.logo)
                 .fit()
                 .into(holder.jobimageView);
+
     }
     @Override
     public int getItemCount() {
@@ -48,7 +49,7 @@ public class JobImageAdapter extends RecyclerView.Adapter<JobImageAdapter.ImageV
             super(itemView);
          //   name = itemView.findViewById(R.id.jobname);
             jobDesc = itemView.findViewById(R.id.job_text_view_description);
-            jobimageView = itemView.findViewById(R.id.job_image_view);
+            jobimageView = itemView.findViewById(R.id.job_image_view_upload);
         }
     }
 }

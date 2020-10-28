@@ -1,27 +1,22 @@
 package com.pro.ssetalumni;
+// class to intitalize datas
 
-public class uploadjobs {
-
+public class UploadImageJobs {
     private String mDescription;
     private String mImageUrl;
     private String mName;
-    public Uploadjobs() {
+    public UploadImageJobs() {
         //empty constructor needed
     }
-    public UploadImage(String name,String description, String imageUrl) {
+    public UploadImageJobs(String description, String imageUrl) {
         if (description.trim().equals("")) { //if no description
-            description = "....";
+            description = "SCMS jobs";
         }
-        mName = name;
+
         mDescription = description;
         mImageUrl = imageUrl;
     }
-    public  void setName(String name) {
-        mName = name;
-    }
-    public String getName() {
-        return mName;
-    }
+
     public String getDescription() {
         return mDescription;
     }
@@ -35,4 +30,4 @@ public class uploadjobs {
         mImageUrl = imageUrl;
     }
 }
-}
+
