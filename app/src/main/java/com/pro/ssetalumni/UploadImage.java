@@ -1,10 +1,15 @@
 package com.pro.ssetalumni;
 // class to intitalize datas
 
+import com.google.firebase.database.Exclude;
+
 public class UploadImage {
     private String mDescription;
     private String mImageUrl;
     private String mName;
+   private String id;
+
+    private String mKey;
     public UploadImage() {
         //empty constructor needed
     }
@@ -33,6 +38,21 @@ public class UploadImage {
     }
     public void setImageUrl(String imageUrl) {
         mImageUrl = imageUrl;
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    @Exclude
+    public String getKey() {
+        return mKey;
+    }
+    @Exclude
+    public void setKey(String key) {
+        mKey = key;
     }
 }
 

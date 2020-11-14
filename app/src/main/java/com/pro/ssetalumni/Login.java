@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,10 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class Login extends AppCompatActivity {
-    EditText mEmail,mPassword;
+    EditText mEmail, mPassword;
     Button mLoginBtn;
-    TextView mCreateBtn,forgotTextLink,buttonadmin;
+    TextView mCreateBtn, forgotTextLink, buttonadmin;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
     String fullname;
@@ -56,20 +59,20 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = mEmail.getText().toString().trim();
+                final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is Required.");
                     return;
                 }
 
-                if(password.length() < 6){
+                if (password.length() < 6) {
                     mPassword.setError("Password Must be >= 6 Characters");
                     return;
                 }
@@ -78,18 +81,31 @@ public class Login extends AppCompatActivity {
 
                 // authenticate the user
 
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-
-                            Intent i = new Intent(Login.this , Home.class);
-                            startActivity(i);
+                        if (task.isSuccessful()) {
 
 
 
-                        }else {
+                            String adminEmail1 = "sananth1010@gmail.com";
+                            if (email.equals(adminEmail1)) {
+                                Log.d("email","email="+email);
+                                Intent i = new Intent(Login.this, Home.class);
+                                i.putExtra("Admin", 1);
+
+                                AdminCheck adminCheck = (AdminCheck)getApplicationContext();
+                                adminCheck.setADMIN(1);
+                                startActivity(i);
+                            } else {
+                                Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+
+                                Intent i = new Intent(Login.this, Home.class);
+                                startActivity(i);
+
+                            }
+
+                        } else {
                             Toast.makeText(Login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
@@ -103,7 +119,7 @@ public class Login extends AppCompatActivity {
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),SSET_reg.class));
+                startActivity(new Intent(getApplicationContext(), SSET_reg.class));
             }
         });
 
@@ -152,7 +168,7 @@ public class Login extends AppCompatActivity {
         buttonadmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Login.this,AdminLogin.class);
+                Intent i = new Intent(Login.this, AdminLogin.class);
                 startActivity(i);
             }
         });

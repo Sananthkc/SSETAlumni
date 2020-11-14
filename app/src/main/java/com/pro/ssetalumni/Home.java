@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 import java.util.ArrayList;
@@ -37,23 +43,24 @@ public class Home extends AppCompatActivity {
     NavigationView navigationView;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
+   Button deletePost;
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseRef;
     private List<UploadImage> mUploads;
-
+    int ADMIN;
     String fullname;
     TextView fullName;
-
+    private ValueEventListener mDBListener;
     BottomNavigationView bottomNavigationView;
-
+    private FirebaseStorage mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        Log.d("admin","admin="+ ADMIN);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setSelectedItemId(R.id.action_Posts);
@@ -96,13 +103,10 @@ public class Home extends AppCompatActivity {
 
 
 
+        ADMIN = getIntent().getIntExtra("ADMIN", 0);
 
-/*
-        Intent intent = getIntent();
-        fullname= intent.getStringExtra("full_name_from_login");
-        fullName  = findViewById(R.id.name_poster);
-        fullName.setText(fullname);
-*/
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -158,10 +162,15 @@ public class Home extends AppCompatActivity {
 
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        deletePost = findViewById(R.id.deleteImageButton);
 
 
+        mStorage = FirebaseStorage.getInstance();
 
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        mRecyclerView.setAdapter(mAdapter);
+
+
+      mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mUploads.clear();       //for clearing the list every time a post is added...if not done, then the entire posts will gets merged again and again
@@ -170,11 +179,12 @@ public class Home extends AppCompatActivity {
 
 
                     UploadImage upload = postSnapshot.getValue(UploadImage.class);
-
+                    upload.setKey(postSnapshot.getKey());
                     mUploads.add(upload);
 
                 }
                 mAdapter = new ImageAdapter(Home.this, mUploads);
+
                 mRecyclerView.setAdapter(mAdapter);
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
